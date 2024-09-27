@@ -1,6 +1,9 @@
 Class {
 	#name : 'LibNoise',
 	#superclass : 'FFILibrary',
+	#pools : [
+		'NoNoiseTypedef'
+	],
 	#category : 'LibNoise-Library',
 	#package : 'LibNoise',
 	#tag : 'Library'
@@ -10,6 +13,13 @@ Class {
 LibNoise class >> example [
 	"this is taken from linoise tutorial"
 	<sampleInstance>
+	
+	^ self example: 42.0
+]
+
+{ #category : 'examples' }
+LibNoise class >> example: seed [
+	"this is taken from linoise tutorial"
 	| mountainTerrain baseFlatTerrain flatTerrain terrainType terrainSelector finalTerrain heightMap heightMapBuilder renderer image writer |
 	
 	mountainTerrain := NoRidgedMulti new autoRelease.
@@ -24,6 +34,7 @@ LibNoise class >> example [
 	terrainType := NoPerlin new autoRelease.
 	terrainType setFrequency: 0.5.
 	terrainType setPersistence: 0.25.
+	terrainType setSeed: seed.
 
 	terrainSelector := NoSelect new autoRelease.
 	terrainSelector setSourceModuleIndex: 0 sourceModule: flatTerrain.
@@ -57,10 +68,6 @@ LibNoise class >> example [
 	renderer setDestImage: image.
 
 	renderer clearGradient.
-	"renderer addGradientPointGradientPos: -1.00 gradientColor: (NuColor newR:  32 g: 160 b:   0 a: 255) autoRelease.
-	renderer addGradientPointGradientPos: -0.25 gradientColor: (NuColor newR: 224 g: 224 b:   0 a: 255) autoRelease.
-	renderer addGradientPointGradientPos:  0.25 gradientColor: (NuColor newR: 128 g: 128 b: 128 a: 255) autoRelease.
-	renderer addGradientPointGradientPos:  1.00 gradientColor: (NuColor newR: 255 g: 255 b: 255 a: 255) autoRelease."
 	renderer addGradientPointGradientPos: -1.0000 gradientColor: (NuColor newR: 0 g: 0 b: 128 a: 255) autoRelease.
 	renderer addGradientPointGradientPos: -0.2500 gradientColor: (NuColor newR: 0 g: 0 b: 255 a: 255) autoRelease.
 	renderer addGradientPointGradientPos:  0.0000 gradientColor: (NuColor newR: 0 g: 128 b: 255 a: 255) autoRelease.
@@ -82,6 +89,24 @@ LibNoise class >> example [
 	writer writeDestFile.
 
 	^ (BMPReadWriter formFromFileNamed: 'tutorial.bmp') scaledToSize: 512@512
+]
+
+{ #category : 'public' }
+LibNoise >> clampValue: value lowerBound: lowerBound upperBound: upperBound [
+	"/// Clamps a value onto a clamping range.
+	 ///
+	 /// @param value The value to clamp.
+	 /// @param lowerBound The lower bound of the clamping range.
+	 /// @param upperBound The upper bound of the clamping range.
+	 ///
+	 /// @returns
+	 /// - @a value if @a value lies between @a lowerBound and @a upperBound.
+	 /// - @a lowerBound if @a value is less than @a lowerBound.
+	 /// - @a upperBound if @a value is greater than @a upperBound.
+	 ///
+	 /// This function does not modify any parameters."
+
+	self ffiCall: #(int no_noise_ClampValue(int value, int lowerBound, int upperBound))
 ]
 
 { #category : 'public' }
@@ -194,7 +219,9 @@ LibNoise >> intValueNoise3DX: x y: y z: z seed: seed [
 { #category : 'accessing - platform' }
 LibNoise >> macLibraryName [
 
-	^ FFIMacLibraryFinder findLibrary: 'noise_bindings.dylib'
+	^ FFIMacLibraryFinder new
+		userPaths: #('./CIG/lib');
+		findLibrary: 'noise_bindings.dylib'
 ]
 
 { #category : 'public' }
@@ -220,10 +247,20 @@ LibNoise >> makeInt32Range: n [
 	self ffiCall: #(double no_noise_MakeInt32Range(double n))
 ]
 
+{ #category : 'accessing' }
+LibNoise >> runner [
+	
+	^ TFProcessLocalWorker new 
+		defaultWorker: TFSameThreadRunner uniqueInstance;
+		yourself
+]
+
 { #category : 'accessing - platform' }
 LibNoise >> unix64LibraryName [
 
-	^ FFIUnix64LibraryFinder findLibrary: 'noise_bindings.so'
+	^ FFIUnix64LibraryFinder new
+		userPaths: #('./CIG/lib');
+		findLibrary: 'noise_bindings.so'
 ]
 
 { #category : 'public' }
@@ -271,5 +308,7 @@ LibNoise >> valueNoise3DX: x y: y z: z seed: seed [
 { #category : 'accessing - platform' }
 LibNoise >> win32LibraryName [
 
-	^ FFIWindowsLibraryFinder findLibrary: 'noise_bindings.dll'
+	^ FFIWindowsLibraryFinder new
+		userPaths: #('./CIG/lib');
+		findLibrary: 'noise_bindings.dll'
 ]

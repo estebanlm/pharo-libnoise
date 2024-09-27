@@ -2,6 +2,7 @@ Class {
 	#name : 'NoNoiseTypedef',
 	#superclass : 'SharedPool',
 	#classVars : [
+		'bool',
 		'int16_t',
 		'int32_t',
 		'int64_t',
@@ -53,10 +54,13 @@ Class {
 		'no_noise_uint16',
 		'no_noise_uint32',
 		'no_noise_uint8',
+		'pid_t',
+		'time_t',
 		'uint16_t',
 		'uint32_t',
 		'uint64_t',
-		'uint8_t'
+		'uint8_t',
+		'uintptr_t'
 	],
 	#category : 'LibNoise-Library',
 	#package : 'LibNoise',
@@ -66,14 +70,18 @@ Class {
 { #category : 'class initialization' }
 NoNoiseTypedef class >> initialize [
 
-	int8_t := #int8.
-	int32_t := #int32.
-	int16_t := #int16.
-	uint64_t := #uint64.
-	uint8_t := #uint8.
-	int64_t := #int64.
+	pid_t := #int.
 	uint16_t := #uint16.
+	uint8_t := #uint8.
+	int16_t := #int16.
+	int64_t := #int64.
 	uint32_t := #uint32.
+	time_t := #int.
+	uintptr_t := #'void *'.
+	int32_t := #int32.
+	int8_t := #int8.
+	bool := #Boolean.
+	uint64_t := #uint64.
 	no_noise_module_Curve := NoCurve.
 	no_noise_int16 := #short.
 	no_noise_uint := #uint.

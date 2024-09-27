@@ -10,7 +10,7 @@ Class {
 	#tag : 'Module'
 }
 
-{ #category : 'enum declaration' }
+{ #category : 'field definition' }
 NoControlPoint class >> fieldsDesc [
 
 	^ #(

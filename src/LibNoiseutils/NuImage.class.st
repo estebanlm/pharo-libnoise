@@ -205,7 +205,7 @@ NuImage >> getMemUsed [
 	 ///
 	 /// This method returns the number of Color objects allocated."
 
-	self ffiCall: #(int nu_noise_utils_Image_GetMemUsed(nu_noise_utils_Image* self))
+	self ffiCall: #(size_t nu_noise_utils_Image_GetMemUsed(nu_noise_utils_Image* self))
 ]
 
 { #category : 'public' }

@@ -207,7 +207,7 @@ NuNoiseMap >> getMemUsed [
 	 ///
 	 /// This method returns the number of @a float values allocated."
 
-	self ffiCall: #(int nu_noise_utils_NoiseMap_GetMemUsed(nu_noise_utils_NoiseMap* self))
+	self ffiCall: #(size_t nu_noise_utils_NoiseMap_GetMemUsed(nu_noise_utils_NoiseMap* self))
 ]
 
 { #category : 'public' }

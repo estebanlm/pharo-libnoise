@@ -2,6 +2,7 @@ Class {
 	#name : 'NuNoiseutilsTypedef',
 	#superclass : 'SharedPool',
 	#classVars : [
+		'bool',
 		'int16_t',
 		'int32_t',
 		'int64_t',
@@ -20,10 +21,13 @@ Class {
 		'nu_noise_utils_RendererNormalMap',
 		'nu_noise_utils_WriterBMP',
 		'nu_noise_utils_WriterTER',
+		'pid_t',
+		'time_t',
 		'uint16_t',
 		'uint32_t',
 		'uint64_t',
-		'uint8_t'
+		'uint8_t',
+		'uintptr_t'
 	],
 	#category : 'LibNoiseutils-Library',
 	#package : 'LibNoiseutils',
@@ -33,14 +37,18 @@ Class {
 { #category : 'class initialization' }
 NuNoiseutilsTypedef class >> initialize [
 
-	int8_t := #int8.
-	int32_t := #int32.
-	int16_t := #int16.
-	uint64_t := #uint64.
-	uint8_t := #uint8.
-	int64_t := #int64.
+	pid_t := #int.
 	uint16_t := #uint16.
+	uint8_t := #uint8.
+	int16_t := #int16.
+	int64_t := #int64.
 	uint32_t := #uint32.
+	time_t := #int.
+	uintptr_t := #'void *'.
+	int32_t := #int32.
+	int8_t := #int8.
+	bool := #Boolean.
+	uint64_t := #uint64.
 	nu_noise_utils_NoiseMapBuilderCylinder := NuNoiseMapBuilderCylinder.
 	nu_noise_utils_NoiseMapBuilderPlane := NuNoiseMapBuilderPlane.
 	nu_noise_utils_NoiseMapBuilderSphere := NuNoiseMapBuilderSphere.

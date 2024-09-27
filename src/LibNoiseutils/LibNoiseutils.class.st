@@ -1,6 +1,10 @@
 Class {
 	#name : 'LibNoiseutils',
 	#superclass : 'FFILibrary',
+	#pools : [
+		'NoNoiseTypedef',
+		'NuNoiseutilsTypedef'
+	],
 	#category : 'LibNoiseutils-Library',
 	#package : 'LibNoiseutils',
 	#tag : 'Library'
@@ -87,17 +91,31 @@ LibNoiseutils class >> example [
 { #category : 'accessing - platform' }
 LibNoiseutils >> macLibraryName [
 
-	^ FFIMacLibraryFinder findLibrary: 'noiseutils_bindings.dylib'
+	^ FFIMacLibraryFinder new
+		userPaths: #('./CIG/lib');
+		findLibrary: 'noiseutils_bindings.dylib'
+]
+
+{ #category : 'accessing' }
+LibNoiseutils >> runner [
+	
+	^ TFProcessLocalWorker new 
+		defaultWorker: TFSameThreadRunner uniqueInstance;
+		yourself
 ]
 
 { #category : 'accessing - platform' }
 LibNoiseutils >> unix64LibraryName [
 
-	^ FFIUnix64LibraryFinder findLibrary: 'noiseutils_bindings.so'
+	^ FFIUnix64LibraryFinder new
+		userPaths: #('./CIG/lib');
+		findLibrary: 'noiseutils_bindings.so'
 ]
 
 { #category : 'accessing - platform' }
 LibNoiseutils >> win32LibraryName [
 
-	^ FFIWindowsLibraryFinder findLibrary: 'noiseutils_bindings.dll'
+	^ FFIWindowsLibraryFinder new
+		userPaths: #('./CIG/lib');
+		findLibrary: 'noiseutils_bindings.dll'
 ]

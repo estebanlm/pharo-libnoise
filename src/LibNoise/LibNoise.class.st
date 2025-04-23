@@ -1,3 +1,16 @@
+"
+Bindings generated as:
+```smalltalk
+CigCppLibraryGenerator new
+		prefix: 'No';
+		libraryName: 'noise';
+		import: '/home/esteban/dev/vm/libnoise/include/noise/noise.h';
+		cIncludePath: '/home/esteban/dev/vm/libnoise/include';
+		cIncludePath: '/home/esteban/dev/vm/libnoise/include/noise';
+		cLib: 'noise';
+		generate
+```
+"
 Class {
 	#name : 'LibNoise',
 	#superclass : 'FFILibrary',

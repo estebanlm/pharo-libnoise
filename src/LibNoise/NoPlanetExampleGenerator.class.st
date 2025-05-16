@@ -27,6 +27,12 @@ NoPlanetExampleGenerator class >> on: aPlanet [
 ]
 
 { #category : 'generating' }
+NoPlanetExampleGenerator >> asForm [
+
+	^ self writeTo: UUID new asString36, '.bmp' 
+]
+
+{ #category : 'generating' }
 NoPlanetExampleGenerator >> generate [
 	| builder |
 	
@@ -200,4 +206,16 @@ NoPlanetExampleGenerator >> planet [
 NoPlanetExampleGenerator >> planet: aPlanet [
 
 	planet := aPlanet
+]
+
+{ #category : 'generating' }
+NoPlanetExampleGenerator >> writeTo: aString [
+
+	bitmapWriter setSourceImage: destImage.
+	bitmapWriter setDestFilename: aString.
+	bitmapWriter writeDestFile.
+	
+	^ (BMPReadWriter formFromFileNamed: aString)
+	
+
 ]

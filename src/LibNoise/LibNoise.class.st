@@ -66,7 +66,7 @@ LibNoise class >> example: seed [
 
 	heightMapBuilder setSourceModule: finalTerrain.
 	heightMapBuilder setDestNoiseMap: heightMap.
-	heightMapBuilder setDestSizeDestWidth: 256 destHeight: 256.
+	heightMapBuilder setDestSizeDestWidth: 512 destHeight: 512.
 	heightMapBuilder 
 		setBoundsLowerXBound: 6.0 
 		upperXBound: 10.0 
@@ -101,7 +101,7 @@ LibNoise class >> example: seed [
 	writer setDestFilename: 'tutorial.bmp'.
 	writer writeDestFile.
 
-	^ (BMPReadWriter formFromFileNamed: 'tutorial.bmp') scaledToSize: 512@512
+	^ (BMPReadWriter formFromFileNamed: 'tutorial.bmp') "scaledToSize: 512@512"
 ]
 
 { #category : 'public' }
